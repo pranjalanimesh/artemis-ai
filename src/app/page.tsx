@@ -35,6 +35,7 @@ import {
   Menu,
   Save,
   Clock,
+  ChevronLeft,
 } from "lucide-react"
 import * as React from "react"
 
@@ -84,131 +85,131 @@ export default function Home() {
   return (
     <SidebarProvider>
       <div className="flex h-screen bg-white">
-        {/* Global sidebar toggle button */}
-        <div className="absolute left-2 top-2 z-50">
-          <Button variant="outline" size="icon" aria-label="Toggle sidebar" onClick={toggle}>
-              <Menu className="w-4 h-4" />
-          </Button>
-        </div>
 
         {/* Left Sidebar */}
-        <div className={openLocal ? "contents" : "hidden md:contents"}>
-          <Sidebar className="w-64 border-r">
+        <div className="contents">
+        <Sidebar className={`border-r transition-all duration-200 ${openLocal ? "w-64" : "w-14"}`}>
             <SidebarHeader className="p-4">
-              <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">pwc</span>
+                    <span className="text-white font-bold text-sm">pwc</span>
                 </div>
-              </div>
-              {/* Removed the + button per TODO */}
+                </div>
+                <Button variant="ghost" size="icon" aria-label="Toggle sidebar" onClick={toggle}>
+                {openLocal ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                </Button>
+            </div>
+            {/* Removed the + button per TODO */}
             </SidebarHeader>
 
             <SidebarContent className="px-2">
-              <SidebarGroup>
+            <SidebarGroup>
                 <SidebarMenu>
-                  <SidebarMenuItem>
+                <SidebarMenuItem>
                     <SidebarMenuButton className="w-full justify-between">
-                      <div className="flex items-center gap-2">
-                          <Mail className="w-4 h-4" />
+                    <div className="flex items-center gap-2">
+                        <Mail className="w-4 h-4" />
                         <span>Inbox</span>
-                      </div>
-                      <SidebarMenuBadge>2</SidebarMenuBadge>
+                    </div>
+                    <SidebarMenuBadge>2</SidebarMenuBadge>
                     </SidebarMenuButton>
-                  </SidebarMenuItem>
+                </SidebarMenuItem>
 
-                  <SidebarMenuItem>
+                <SidebarMenuItem>
                     <SidebarMenuButton className="w-full justify-between">
-                      <div className="flex items-center gap-2">
-                          <Plus className="w-4 h-4" />
+                    <div className="flex items-center gap-2">
+                        <Plus className="w-4 h-4" />
                         <span>Create</span>
-                      </div>
-                        <ChevronRight className="w-4 h-4" />
+                    </div>
+                    <ChevronRight className="w-4 h-4" />
                     </SidebarMenuButton>
-                  </SidebarMenuItem>
+                </SidebarMenuItem>
 
-                  <SidebarMenuItem>
+                <SidebarMenuItem>
                     <SidebarMenuButton className="w-full justify-between bg-purple-50 text-purple-700">
-                      <div className="flex items-center gap-2">
-                          <BookOpen className="w-4 h-4" />
+                    <div className="flex items-center gap-2">
+                        <BookOpen className="w-4 h-4" />
                         <span>Library</span>
-                      </div>
-                        <ChevronDown className="w-4 h-4" />
+                    </div>
+                    <ChevronDown className="w-4 h-4" />
                     </SidebarMenuButton>
-                  </SidebarMenuItem>
+                </SidebarMenuItem>
 
-                  <SidebarMenuSub>
+                <SidebarMenuSub>
                     <SidebarMenuSubItem>
-                      <SidebarMenuSubButton className="w-full justify-between bg-purple-50 text-purple-700 border-l-2 border-purple-500">
+                    <SidebarMenuSubButton className="w-full justify-between bg-purple-50 text-purple-700 border-l-2 border-purple-500">
                         <span>All</span>
                         <SidebarMenuBadge>40</SidebarMenuBadge>
-                      </SidebarMenuSubButton>
+                    </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                     <SidebarMenuSubItem>
-                      <SidebarMenuSubButton className="w-full justify-between">
+                    <SidebarMenuSubButton className="w-full justify-between">
                         <span>Draft</span>
                         <SidebarMenuBadge>32</SidebarMenuBadge>
-                      </SidebarMenuSubButton>
+                    </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                     <SidebarMenuSubItem>
-                      <SidebarMenuSubButton className="w-full justify-between">
+                    <SidebarMenuSubButton className="w-full justify-between">
                         <span>Returned</span>
                         <SidebarMenuBadge>15</SidebarMenuBadge>
-                      </SidebarMenuSubButton>
+                    </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                     <SidebarMenuSubItem>
-                      <SidebarMenuSubButton className="w-full justify-between">
+                    <SidebarMenuSubButton className="w-full justify-between">
                         <span>For Review</span>
                         <SidebarMenuBadge>24</SidebarMenuBadge>
-                      </SidebarMenuSubButton>
+                    </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                     <SidebarMenuSubItem>
-                      <SidebarMenuSubButton className="w-full justify-between">
+                    <SidebarMenuSubButton className="w-full justify-between">
                         <span>Published</span>
                         <SidebarMenuBadge>24</SidebarMenuBadge>
-                      </SidebarMenuSubButton>
+                    </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                     <SidebarMenuSubItem>
-                      <SidebarMenuSubButton className="w-full justify-between">
+                    <SidebarMenuSubButton className="w-full justify-between">
                         <span>Archived</span>
                         <SidebarMenuBadge>19</SidebarMenuBadge>
-                      </SidebarMenuSubButton>
+                    </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                     <SidebarMenuSubItem>
-                      <SidebarMenuSubButton className="w-full justify-between">
+                    <SidebarMenuSubButton className="w-full justify-between">
                         <span>Uncategorised</span>
                         <SidebarMenuBadge>5</SidebarMenuBadge>
-                      </SidebarMenuSubButton>
+                    </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                     <SidebarMenuSubItem>
-                      <SidebarMenuSubButton className="w-full justify-between">
+                    <SidebarMenuSubButton className="w-full justify-between">
                         <span>Trash</span>
                         <SidebarMenuBadge>8</SidebarMenuBadge>
-                      </SidebarMenuSubButton>
+                    </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
-                  </SidebarMenuSub>
+                </SidebarMenuSub>
 
-                  <SidebarMenuItem>
+                <SidebarMenuItem>
                     <SidebarMenuButton className="w-full">
-                      <div className="flex items-center gap-2">
-                          <MessageCircle className="w-4 h-4" />
+                    <div className="flex items-center gap-2">
+                        <MessageCircle className="w-4 h-4" />
                         <span>Chat</span>
-                      </div>
+                    </div>
                     </SidebarMenuButton>
-                  </SidebarMenuItem>
+                </SidebarMenuItem>
 
-                  <SidebarMenuItem>
+                <SidebarMenuItem>
                     <SidebarMenuButton className="w-full">
-                      <div className="flex items-center gap-2">
-                          <Workflow className="w-4 h-4" />
+                    <div className="flex items-center gap-2">
+                        <Workflow className="w-4 h-4" />
                         <span>Workflows</span>
-                      </div>
+                    </div>
                     </SidebarMenuButton>
-                  </SidebarMenuItem>
+                </SidebarMenuItem>
                 </SidebarMenu>
-              </SidebarGroup>
+            </SidebarGroup>
             </SidebarContent>
-          </Sidebar>
+        </Sidebar>
         </div>
+
 
         {/* Main Content Area */}
         <div className="flex-1 flex">
@@ -299,11 +300,9 @@ export default function Home() {
                       <ChevronDown className="w-4 h-4" />
                     </IconWrap>
                   </Button>
-                  <div className="flex items-center gap-1 text-sm text-gray-500">
-                    <IconWrap>
-                      <Save className="w-4 h-4 animate-spin" />
-                    </IconWrap>
-                    <span>Saving</span>
+                  <div className="flex items-center gap-1 text-sm text-black">
+                      <Save className="w-4 h-4" />
+                    <span>Save</span>
                   </div>
                   <div className="flex -space-x-1">
                     <Avatar className="w-8 h-8 border-2 border-white">
