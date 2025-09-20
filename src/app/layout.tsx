@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "LexPattern",
+  title: "ArtemisAI",
   description: "AI assisted Medical Review",
 };
 
