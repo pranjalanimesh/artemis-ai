@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Sansation, Outfit } from "next/font/google"
+import { Sansation, Montserrat } from "next/font/google"
 import "./globals.css"
 import WorkspaceFrame from "@/components/layout/WorkspaceFrame"
 
@@ -9,8 +9,9 @@ const heading = Sansation({
   weight: ["400", "700"],
 })
 
-const body = Outfit({
+const body = Montserrat({
   variable: "--font-body",
+  weight: ["400"],
   subsets: ["latin"],
   display: "swap",
 })
