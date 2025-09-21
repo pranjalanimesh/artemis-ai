@@ -99,10 +99,6 @@ export default function TopBar({ query, setQuery, inputRef, notices, setNotices,
                                 <div className="py-8 text-center text-sm text-gray-500">No notifications</div>
                             )}
                         </div>
-                        <DropdownMenuSeparator />
-                        <div className="p-2">
-                            <Button variant="outline" className="w-full" onClick={() => alert("Opening activity…")}>Open Activity</Button>
-                        </div>
                     </DropdownMenuContent>
                 </DropdownMenu>
 

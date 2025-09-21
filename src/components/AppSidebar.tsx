@@ -114,16 +114,19 @@ export function AppSidebar({ collapsed, onToggle }: Props) {
 
         {/* Footer account card */}
         <div className="mt-auto p-3">
-          <div className="flex items-center gap-2 rounded-md border p-2">
+          <div className={`flex items-center gap-2 rounded-md ${collapsed ? "py-3" : "border p-2"} `}>
             <Avatar className="h-8 w-8">
               <AvatarFallback><h1>P</h1></AvatarFallback>
             </Avatar>
-            <div className={revealCls}>
-              <h1 className="text-sm font-medium">Pranjal</h1>
-              <div className="text-xs text-muted-foreground">NeuralIT LLC</div>
-            </div>
+            {!collapsed && (
+              <div className={revealCls}>
+                <h1 className="text-sm font-medium">Pranjal</h1>
+                <div className="text-xs text-muted-foreground">NeuralIT LLC</div>
+              </div>
+            )}
           </div>
         </div>
+
       </Sidebar>
     </div>
   )
