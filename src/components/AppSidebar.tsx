@@ -26,6 +26,8 @@ import {
   FolderOpen
 } from "lucide-react"
 
+import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
+
 type Props = {
   collapsed: boolean
   onToggle: () => void
@@ -69,7 +71,7 @@ export function AppSidebar({ collapsed, onToggle }: Props) {
             )}
             {!collapsed && (
                 <div className={revealCls}>
-                <div className="text-sm font-semibold leading-tight">ArtemisAI</div>
+                <h1 className="text-sm font-semibold leading-tight">ArtemisAI</h1>
                 <div className="text-[11px] text-muted-foreground leading-tight">
                     Medical Research Suite
                 </div>
@@ -90,6 +92,7 @@ export function AppSidebar({ collapsed, onToggle }: Props) {
         </div>
         </SidebarHeader>
 
+        <DropdownMenuSeparator />
 
         {/* Menu */}
         <SidebarContent className="px-2">
@@ -113,11 +116,11 @@ export function AppSidebar({ collapsed, onToggle }: Props) {
         <div className="mt-auto p-3">
           <div className="flex items-center gap-2 rounded-md border p-2">
             <Avatar className="h-8 w-8">
-              <AvatarFallback>A</AvatarFallback>
+              <AvatarFallback><h1>P</h1></AvatarFallback>
             </Avatar>
             <div className={revealCls}>
-              <div className="text-sm font-medium">Attorney</div>
-              <div className="text-xs text-muted-foreground">Law Firm LLC</div>
+              <h1 className="text-sm font-medium">Pranjal</h1>
+              <div className="text-xs text-muted-foreground">NeuralIT LLC</div>
             </div>
           </div>
         </div>
