@@ -65,7 +65,7 @@ export default function WorkspaceFrame({ children }: { children: React.ReactNode
 
 
                     <main className="w-full overflow-auto relative">
-                        {/* Global interactive background */}
+                        {/* Background under everything */}
                         <div className="absolute inset-0 overflow-hidden">
                             <InteractiveGridPattern
                                 className={cn(
@@ -76,19 +76,22 @@ export default function WorkspaceFrame({ children }: { children: React.ReactNode
                             />
                         </div>
 
+                        {/* Sticky TopBar */}
+                        <div className="sticky top-0 z-20 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b">
+                            <div className="px-6 py-5">
+                                <TopBar
+                                    query={query}
+                                    setQuery={setQuery}
+                                    inputRef={inputRef}
+                                    notices={notices}
+                                    setNotices={setNotices}
+                                    onRefresh={() => window.location.reload()}
+                                />
+                            </div>
+                        </div>
 
+                        {/* Page content with padding and spacing */}
                         <div className="p-6 space-y-6 relative">
-                            {/* Global top bar */}
-                            <TopBar
-                                query={query}
-                                setQuery={setQuery}
-                                inputRef={inputRef}
-                                notices={notices}
-                                setNotices={setNotices}
-                                onRefresh={() => window.location.reload()}
-                            />
-
-                            {/* Page content */}
                             {children}
                         </div>
                     </main>

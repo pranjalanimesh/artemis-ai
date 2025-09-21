@@ -6,10 +6,10 @@ import { Clock, FileText, FileCheck, FileSpreadsheet, Loader2 } from "lucide-rea
 
 function KPI({ title, value, sub }: { title: string; value: string; sub?: string }) {
   return (
-    <div className="border rounded-xl p-4 bg-white/90 backdrop-blur hover:shadow transition">
-      <p className="text-sm text-gray-600">{title}</p>
+    <div className="border rounded-xl p-4 px-6 bg-white/90 backdrop-blur hover:shadow transition space-y-4">
+      <p className="text-lg text-gray-600 ">{title}</p>
       <h3 className="text-2xl font-bold text-gray-900 mt-1">{value}</h3>
-      {sub && <p className="text-xs text-green-700 mt-1">{sub}</p>}
+      {sub && <p className="text-md text-green-700 mt-1">{sub}</p>}
     </div>
   )
 }
