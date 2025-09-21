@@ -104,7 +104,7 @@ export function AppSidebar({ collapsed, onToggle }: Props) {
               {items.map(({ label, icon: Icon, href }) => (
                 <SidebarMenuItem key={label}>
                   <Link href={href} passHref>
-                    <SidebarMenuButton className={`w-full px-2 hover:bg-blue-50 ${collapsed ? "justify-center rounded-full" : "justify-start"} ${pathname === href ? "bg-blue-100 shadow-sm" : ""}`}>
+                    <SidebarMenuButton className={`w-full px-2 hover:bg-blue-50 ${collapsed ? "justify-center rounded-full" : "justify-start"} ${pathname === href ? "bg-blue-100 shadow-sm hover:bg-blue-100" : ""}`}>
                       <div className="flex items-center gap-2">
                         <Icon className="w-4 h-4 shrink-0" />
                         {!collapsed && <span className="text-sm font-medium">{label}</span>}

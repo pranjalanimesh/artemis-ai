@@ -12,7 +12,7 @@ export default function CaseTable({ items }: { items: CaseRecord[] }) {
             <Table>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Case</TableHead>
+                        <TableHead className="pl-3">Case</TableHead>
                         <TableHead>Parties</TableHead>
                         <TableHead>Type</TableHead>
                         <TableHead>Status</TableHead>
@@ -23,7 +23,7 @@ export default function CaseTable({ items }: { items: CaseRecord[] }) {
                 <TableBody>
                     {items.map((c) => (
                         <TableRow key={c.id} className="hover:bg-muted/50 cursor-pointer" asChild={false}>
-                            <TableCell className="font-medium"><Link href={`/chronologies/${c.id}`} className="underline underline-offset-2">{c.title}</Link></TableCell>
+                            <TableCell className="font-medium"><Link href={`/chronologies/${c.id}`} className="underline underline-offset-2 pl-1">{c.title}</Link></TableCell>
                             <TableCell className="text-sm text-muted-foreground">{c.parties.join(" · ")}</TableCell>
                             <TableCell><Badge variant="secondary">{c.type}</Badge></TableCell>
                             <TableCell><Badge>{c.status}</Badge></TableCell>
