@@ -41,8 +41,8 @@ const items = [
   { label: "Documents", icon: FileText, href: "/documents" },
   { label: "Medical Findings", icon: Stethoscope, href: "/medical" },
   { label: "Chronologies", icon: Calendar, href: "/chronologies" },
-  { label: "Briefs", icon: Briefcase, href: "/briefs" },
-  { label: "Templates", icon: LayoutTemplate, href: "/templates" },
+  // { label: "Briefs", icon: Briefcase, href: "/briefs" },
+  // { label: "Templates", icon: LayoutTemplate, href: "/templates" },
   { label: "Settings", icon: Settings, href: "/settings" },
 ] as const
 
