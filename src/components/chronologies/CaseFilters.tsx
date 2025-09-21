@@ -8,7 +8,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuChe
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { CalendarIcon, Filter, RotateCcw, Tag, X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { CaseStatus, CaseType } from "@/lib/chronologies/types";
+import { CaseStatus, CaseType } from "@/utils/types";
 
 
 function setQuery(router: any, params: URLSearchParams, key: string, value?: string) {
