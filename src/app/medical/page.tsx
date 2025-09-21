@@ -204,15 +204,17 @@ function StatsSection({ findings }: { findings: any[] }) {
   );
 }
 
+
 export default function MedicalPage() {
   const [systemFilter, setSystemFilter] = useState<string>("All");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [showStats, setShowStats] = useState<boolean>(true); // NEW
 
   const handleSystemFilter = (system: string) => {
     setSystemFilter(system);
   };
 
-  const findings = [
+    const findings = [
     {
       type: "Diagnosis",
       category: "Musculoskeletal",
@@ -394,8 +396,13 @@ export default function MedicalPage() {
           <p className="text-sm text-gray-600">AI-extracted medical information from your documents</p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" onClick={() => console.log("Hide stats clicked")}>
-            Hide Stats
+          <Button
+            variant="outline"
+            onClick={() => setShowStats((s) => !s)}                 // CHANGED
+            aria-pressed={showStats}
+            title={showStats ? "Hide stats" : "Show stats"}
+          >
+            {showStats ? "Hide Stats" : "Show Stats"}               {/* CHANGED */}
           </Button>
           <Button>
             <Plus className="w-4 h-4 mr-2" />
@@ -408,7 +415,7 @@ export default function MedicalPage() {
         </div>
       </div>
 
-      <StatsSection findings={filteredFindings} />
+      {showStats && <StatsSection findings={filteredFindings} />}    {/* NEW */}
 
       <div className="flex items-center gap-4 mb-6">
         <div className="flex-1 flex items-center gap-4">
