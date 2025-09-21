@@ -16,10 +16,8 @@ import {
   LayoutGrid,
   Upload,
   FileText,
-  Stethoscope,
-  Calendar,
   Briefcase,
-  LayoutTemplate,
+  Calendar,
   Settings,
   ChevronRight,
   ChevronLeft,
@@ -35,16 +33,35 @@ type Props = {
   onToggle: () => void
 }
 
-const items = [
-  { label: "Dashboard", icon: LayoutGrid, href: "/dashboard" },
-  { label: "Import Records", icon: Upload, href: "/import" },
-  { label: "Documents", icon: FileText, href: "/documents" },
-  { label: "Medical Findings", icon: Stethoscope, href: "/medical" },
-  { label: "Chronologies", icon: Calendar, href: "/chronologies" },
-  // { label: "Briefs", icon: Briefcase, href: "/briefs" },
-  // { label: "Templates", icon: LayoutTemplate, href: "/templates" },
-  { label: "Settings", icon: Settings, href: "/settings" },
-] as const
+const menuItems = [
+    {
+        title: "Workspace",
+        items: [
+            { label: "Dashboard", icon: LayoutGrid, href: "/dashboard" },
+            { label: "Cases", icon: Briefcase, href: "/cases" },
+        ]
+    },
+    {
+        title: "Data Management",
+        items: [
+            { label: "Import Records", icon: Upload, href: "/import" },
+            { label: "Documents", icon: FileText, href: "/documents" },
+        ]
+    },
+    {
+        title: "Analysis",
+        items: [
+            { label: "Chronologies", icon: Calendar, href: "/chronologies" },
+        ]
+    },
+    {
+        title: "General",
+        items: [
+            { label: "Settings", icon: Settings, href: "/settings" },
+        ]
+    }
+];
+
 
 export function AppSidebar({ collapsed, onToggle }: Props) {
   const pathname = usePathname();
@@ -98,23 +115,33 @@ export function AppSidebar({ collapsed, onToggle }: Props) {
         <DropdownMenuSeparator />
 
         {/* Menu */}
-        <SidebarContent className={`${collapsed ? "px-0 w-12 h-12" : "px-2"}`}>
-          <SidebarGroup>
-            <SidebarMenu>
-              {items.map(({ label, icon: Icon, href }) => (
-                <SidebarMenuItem key={label}>
-                  <Link href={href} passHref>
-                    <SidebarMenuButton className={`w-full px-2 hover:bg-blue-50 ${collapsed ? "justify-center rounded-full" : "justify-start"} ${pathname === href ? "bg-blue-100 shadow-sm hover:bg-blue-100" : ""}`}>
-                      <div className="flex items-center gap-2">
-                        <Icon className="w-4 h-4 shrink-0" />
-                        {!collapsed && <span className="text-sm font-medium">{label}</span>}
-                      </div>
-                    </SidebarMenuButton>
-                  </Link>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroup>
+        <SidebarContent className={`overflow-y-auto ${collapsed ? "px-0 w-12" : "px-2"}`}>
+            {menuItems.map((group) => (
+                <SidebarGroup key={group.title} className="mt-0 first:mt-0">
+                    {!collapsed && (
+                        <h2 className="px-2 mb-2 text-xs font-semibold text-muted-foreground tracking-wider">
+                            {group.title}
+                        </h2>
+                    )}
+                    <SidebarMenu>
+                      {group.items.map(({ label, icon: Icon, href }) => {
+                        const isActive = href === "/dashboard" ? pathname === href : pathname.startsWith(href);
+                        return (
+                          <SidebarMenuItem key={label}>
+                            <Link href={href} passHref>
+                              <SidebarMenuButton className={`w-full px-2 hover:bg-blue-50 ${collapsed ? "justify-center rounded-full" : "justify-start"} ${isActive ? "bg-blue-100 shadow-sm hover:bg-blue-100" : ""}`}>
+                                <div className="flex items-center gap-2">
+                                  <Icon className="w-4 h-4 shrink-0" />
+                                  {!collapsed && <span className="text-sm font-medium">{label}</span>}
+                                </div>
+                              </SidebarMenuButton>
+                            </Link>
+                          </SidebarMenuItem>
+                        )
+                      })}
+                    </SidebarMenu>
+                </SidebarGroup>
+            ))}
         </SidebarContent>
 
         {/* Footer account card */}

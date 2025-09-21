@@ -28,16 +28,19 @@ export default function CaseList({ items }: { items: Case[] }) {
                             <Badge key={t} variant="outline">{t}</Badge>
                         ))}
                     </div>
-                    <div className="flex-grow" />
-                    <div className="flex justify-between items-center mt-2">
+
+                    <div className="flex justify-between">
                         <div className="text-xs text-muted-foreground flex items-center gap-4">
                             <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />Filed {c.filedAt}</span>
                             <span className="flex items-center gap-1"><Landmark className="w-3 h-3" />Updated {c.updatedAt}</span>
                         </div>
-                        <Button asChild size="sm">
-                            <Link href={`/workspace/${c.id}`}>Open <ChevronRight className="ml-1 w-4 h-4" /></Link>
-                        </Button>
+                        <div className="flex justify-end">
+                            <Button asChild>
+                                <Link href={`/workspace/${c.id}`}>Open <ChevronRight className="ml-1 w-4 h-4" /></Link>
+                            </Button>
+                        </div>
                     </div>
+                    
                 </Card>
             ))}
         </div>
