@@ -12,14 +12,12 @@ import { LayoutGrid, Table as TableIcon, Plus } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { useFilteredCases } from "@/hooks/use-filtered-cases";
 
-
 export default function ChronologiesPage() {
     const params = useSearchParams();
     const router = useRouter();
-    const view = params.get("view") ?? "cards"; // "cards" | "table"
+    const view = params.get("view") ?? "table";
     const items = useFilteredCases();
     const allTags = Array.from(new Set(CASES.flatMap((c) => c.tags))).sort();
-
 
     return (
         <div className="space-y-6">
@@ -28,35 +26,38 @@ export default function ChronologiesPage() {
                     <h1 className="text-3xl font-semibold">Chronologies</h1>
                     <p className="text-sm text-muted-foreground">Search and filter cases. Click into a case to view its timeline.</p>
                 </div>
-                 <div className="flex items-center gap-2">
-                    <Button>
-                        <Plus className="w-4 h-4 mr-2" />
-                        New Case
-                    </Button>
-                    <Tabs value={view} onValueChange={(v) => {
-                        const next = new URLSearchParams(params.toString());
-                        next.set("view", v);
-                        router.push(`/chronologies?${next.toString()}`);
-                    }}>
+                <div className="flex items-center gap-2">
+                    <Tabs
+                        value={view}
+                        onValueChange={(v) => {
+                            const next = new URLSearchParams(params.toString());
+                            next.set("view", v);
+                            router.push(`/chronologies?${next.toString()}`);
+                        }}
+                    >
                         <TabsList>
-                            <TabsTrigger value="cards" className="flex items-center gap-2"><LayoutGrid className="w-4 h-4" />Cards</TabsTrigger>
-                            <TabsTrigger value="table" className="flex items-center gap-2"><TableIcon className="w-4 h-4" />Table</TabsTrigger>
+                            <TabsTrigger value="cards" className="flex items-center gap-2">
+                                <LayoutGrid className="w-4 h-4" />
+                                Cards
+                            </TabsTrigger>
+                            <TabsTrigger value="table" className="flex items-center gap-2">
+                                <TableIcon className="w-4 h-4" />
+                                Table
+                            </TabsTrigger>
                         </TabsList>
                     </Tabs>
                 </div>
             </div>
 
-
-            <CaseFilters allTags={allTags} basePath="/chronologies" />
+            <CaseFilters allTags={allTags} />
             <Separator />
-
 
             {items.length === 0 ? (
                 <div className="text-sm text-muted-foreground">No cases match your filters. Try resetting.</div>
             ) : view === "table" ? (
-                <CaseTable items={items} />
+                <CaseTable items={items as any} />
             ) : (
-                <CaseList items={items} />
+                <CaseList items={items as any} />
             )}
         </div>
     );

@@ -23,7 +23,7 @@ export default function CaseTable({ items }: { items: Case[] }) {
                     {items.map((c) => (
                         <TableRow key={c.id}>
                             <TableCell className="font-medium">
-                                <Link href={`/workspace/${c.id}`} className="underline underline-offset-2 hover:text-primary">{c.title}</Link>
+                                <Link href={`/workspace/${c.id}`} className="underline underline-offset-2 hover:text-primary pl-1">{c.title}</Link>
                             </TableCell>
                             <TableCell className="text-sm text-muted-foreground">{c.parties.join(" · ")}</TableCell>
                             <TableCell><Badge variant="secondary">{c.type}</Badge></TableCell>
