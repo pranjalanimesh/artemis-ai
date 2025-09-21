@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -29,7 +29,7 @@ interface InteractiveGridPatternProps extends React.SVGProps<SVGSVGElement> {
 export function InteractiveGridPattern({
   width = 40,
   height = 40,
-  squares = [100, 100],
+  squares = [100, 24],
   className,
   squaresClassName,
   ...props

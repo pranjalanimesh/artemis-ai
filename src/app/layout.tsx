@@ -1,13 +1,7 @@
 import type { Metadata } from "next"
-import { Sansation, Montserrat } from "next/font/google"
+import { Montserrat } from "next/font/google"
 import "./globals.css"
 import WorkspaceFrame from "@/components/layout/WorkspaceFrame"
-
-const heading = Sansation({
-  variable: "--font-heading",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-})
 
 const body = Montserrat({
   variable: "--font-body",
@@ -24,7 +18,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${heading.variable} ${body.variable} antialiased`}>
+      <head>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+        </style>
+      </head>
+      <body className={`${body.variable} antialiased`}>
         <WorkspaceFrame>{children}</WorkspaceFrame>
       </body>
     </html>

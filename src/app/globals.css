@@ -118,10 +118,10 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-body), sans-serif;
   }
   h1, h2, h3, .font-heading {
-    font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Sansation', sans-serif;
   }
   :root, .dark {
     --font-body: var(--font-body);

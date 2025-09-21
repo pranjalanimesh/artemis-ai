@@ -70,8 +70,8 @@ export default function WorkspaceFrame({ children }: { children: React.ReactNode
                             <InteractiveGridPattern
                                 className={cn(
                                     "inset-x-[0%] inset-y-[-0%] h-[200%] w-full",
-                                    "[mask-image:radial-gradient(1500px_circle_at_center,white,transparent)]",
-                                    "pointer-events-none opacity-100"
+                                    "[mask-image:radial-gradient(1000px_circle_at_center,white,transparent)]",
+                                    "pointer-events-none opacity-50"
                                 )}
                             />
                         </div>

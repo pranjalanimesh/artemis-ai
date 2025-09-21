@@ -27,6 +27,8 @@ import {
 } from "lucide-react"
 
 import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
+import Link from "next/link"
+import { usePathname } from "next/navigation";
 
 type Props = {
   collapsed: boolean
@@ -34,17 +36,18 @@ type Props = {
 }
 
 const items = [
-  { label: "Dashboard", icon: LayoutGrid },
-  { label: "Import Records", icon: Upload },
-  { label: "Documents", icon: FileText },
-  { label: "Medical Findings", icon: Stethoscope },
-  { label: "Chronologies", icon: Calendar },
-  { label: "Briefs", icon: Briefcase },
-  { label: "Templates", icon: LayoutTemplate },
-  { label: "Settings", icon: Settings },
+  { label: "Dashboard", icon: LayoutGrid, href: "/dashboard" },
+  { label: "Import Records", icon: Upload, href: "/import" },
+  { label: "Documents", icon: FileText, href: "/documents" },
+  { label: "Medical Findings", icon: Stethoscope, href: "/medical" },
+  { label: "Chronologies", icon: Calendar, href: "/chronologies" },
+  { label: "Briefs", icon: Briefcase, href: "/briefs" },
+  { label: "Templates", icon: LayoutTemplate, href: "/templates" },
+  { label: "Settings", icon: Settings, href: "/settings" },
 ] as const
 
 export function AppSidebar({ collapsed, onToggle }: Props) {
+  const pathname = usePathname();
   const sidebarWidth = collapsed ? 56 : 256
   const revealCls = `whitespace-nowrap overflow-hidden transition-[max-width,opacity] duration-300 ease-in-out ${
     collapsed ? "max-w-0 opacity-0" : "max-w-[200px] opacity-100"
@@ -95,17 +98,19 @@ export function AppSidebar({ collapsed, onToggle }: Props) {
         <DropdownMenuSeparator />
 
         {/* Menu */}
-        <SidebarContent className="px-2">
+        <SidebarContent className={`${collapsed ? "px-0 w-12 h-12" : "px-2"}`}>
           <SidebarGroup>
             <SidebarMenu>
-              {items.map(({ label, icon: Icon }) => (
+              {items.map(({ label, icon: Icon, href }) => (
                 <SidebarMenuItem key={label}>
-                  <SidebarMenuButton className={`w-full px-2 ${collapsed ? "justify-center" : "justify-start"}`}>
-                    <div className="flex items-center gap-2">
-                      <Icon className="w-4 h-4 shrink-0" />
-                      <span className={revealCls}>{label}</span>
-                    </div>
-                  </SidebarMenuButton>
+                  <Link href={href} passHref>
+                    <SidebarMenuButton className={`w-full px-2 hover:bg-blue-50 ${collapsed ? "justify-center rounded-full" : "justify-start"} ${pathname === href ? "bg-blue-100 shadow-sm" : ""}`}>
+                      <div className="flex items-center gap-2">
+                        <Icon className="w-4 h-4 shrink-0" />
+                        {!collapsed && <span className="text-sm font-medium">{label}</span>}
+                      </div>
+                    </SidebarMenuButton>
+                  </Link>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
