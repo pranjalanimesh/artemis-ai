@@ -2,22 +2,37 @@
 
 // --- Core Case and Timeline Types ---
 
-export type CaseType = "Civil" | "Criminal" | "Family" | "Corporate" | "IP" | "Other";
+export type CaseType =
+    | "Civil"
+    | "Criminal"
+    | "Family"
+    | "Corporate"
+    | "IP"
+    | "Other";
 
 export type CaseStatus = "Open" | "Closed" | "Stayed" | "Appeal";
 
-export type TimelineCategory = "Filing" | "Order" | "Discovery" | "Hearing" | "Settlement" | "Appeal" | "Motion" | "Evidence" | "Other";
+export type TimelineCategory =
+    | "Filing"
+    | "Order"
+    | "Discovery"
+    | "Hearing"
+    | "Settlement"
+    | "Appeal"
+    | "Motion"
+    | "Evidence"
+    | "Other";
 
 /**
  * Represents a single event or entry in a case's timeline.
  */
 export type TimelineEvent = {
-    date: string;         // ISO date format (e.g., "2024-01-12")
+    date: string; // ISO date format (e.g., "2024-01-12")
     title: string;
     category: TimelineCategory;
     description?: string;
     sourceUrl?: string;
-    iconLabel?: string;   // A short label for an icon, e.g., "PDF"
+    iconLabel?: string; // A short label for an icon, e.g., "PDF"
 };
 
 /**
@@ -36,22 +51,23 @@ export type Case = {
     timeline: TimelineEvent[]; // The detailed chronology is now part of the case
 };
 
-
 // --- Document and Finding Types (Still needed for other parts of the app) ---
 
 /**
  * Represents a single uploaded source document.
  */
 export type Document = {
-    id:string;
-    caseId: string;      // Foreign key to Case
+    id: string;
+    caseId: string; // Foreign key to Case
     patientName: string;
     fileName: string;
     type: string;
-    status: 'Processed' | 'Processing' | 'Error';
+    status: "Processed" | "Processing" | "Error";
     uploadedAt: string;
     pages: number;
     size: string;
+    previewUrl?: string;
+    localPath?: string; 
 };
 
 /**
@@ -60,8 +76,8 @@ export type Document = {
 export type Finding = {
     id: string;
     documentId: string; // Foreign key to Document
-    caseId: string;     // Foreign key to Case
-    type: 'Diagnosis' | 'Treatment' | 'Medication' | 'Test Result' | 'Symptom';
+    caseId: string; // Foreign key to Case
+    type: "Diagnosis" | "Treatment" | "Medication" | "Test Result" | "Symptom";
     category: string;
     description: string;
     date: string;

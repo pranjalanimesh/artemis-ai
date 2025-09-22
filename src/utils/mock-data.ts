@@ -168,7 +168,7 @@ export const CASES: Case[] = [
 ];
 
 export const DOCUMENTS: Document[] = [
-  { id: "doc-101", caseId: "case-101", patientName: "Johnson, Angela", fileName: "ER Records 12-18-2023.pdf", type: "Hospital Records", status: "Processed", uploadedAt: "Dec 21, 2023", pages: 42, size: "3.1 MB" },
+  { id: "doc-101", caseId: "case-101", patientName: "Johnson, Angela", fileName: "ER Records 12-18-2023.pdf", type: "Hospital Records", status: "Processed", uploadedAt: "Dec 21, 2023", pages: 42, size: "3.1 MB", localPath: "/pdfs/pathology_report.pdf" },
   { id: "doc-102", caseId: "case-101", patientName: "Johnson, Angela", fileName: "MRI Cervical Spine 01-09-2024.pdf", type: "Imaging Report", status: "Processed", uploadedAt: "Jan 12, 2024", pages: 4, size: "0.9 MB" },
   { id: "doc-103", caseId: "case-101", patientName: "Johnson, Angela", fileName: "Physical Therapy Notes Jan–Apr 2024.pdf", type: "Therapy Notes", status: "Processed", uploadedAt: "Apr 29, 2024", pages: 68, size: "6.2 MB" },
 
