@@ -164,7 +164,31 @@ export const CASES: Case[] = [
       { date: "2025-06-22", title: "Rule 26 Disclosures", category: "Discovery", description: "Plaintiff discloses treating physicians and burn photos." },
       { date: "2025-08-18", title: "Settlement Dialogue", category: "Settlement", description: "Early negotiation explored; parties far apart pending lab results." }
     ]
-  }
+  },
+  {
+  id: "case-109",
+  title: "PFOA Exposure Litigation — Claim of John Doe",
+  parties: ["John Doe", "ChemCo Industries"],
+  summary:
+    "Toxic tort case alleging chronic exposure to perfluorooctanoic acid (PFOA) from local water supply causing multi-system health issues. Includes extensive medical history, lab results, and expert causation opinions.",
+  status: "Open",
+  type: "Toxic Tort",
+  filedAt: "2025-09-20",
+  updatedAt: "2025-09-22",
+  tags: ["PFOA", "toxic-tort", "environmental"],
+  timeline: [
+    { date: "2005-01-20", title: "Routine Physical Exam", category: "Medical", description: "Baseline cholesterol elevation noted, otherwise normal." },
+    { date: "2010-03-15", title: "Hypertension Diagnosis", category: "Medical", description: "Started Lisinopril 10 mg daily, DASH diet counseling." },
+    { date: "2012-08-22", title: "Colonoscopy & UC Diagnosis", category: "Medical", description: "Confirmed ulcerative colitis; initiated mesalamine therapy." },
+    { date: "2014-11-05", title: "Hospital Admission for AKI", category: "Medical", description: "Creatinine peaked at 3.2 mg/dL, improved with IV fluids." },
+    { date: "2016-05-10", title: "Hashimoto Hypothyroidism", category: "Medical", description: "Levothyroxine started; regular monitoring advised." },
+    { date: "2019-02-18", title: "Orchiectomy — Seminoma Stage I", category: "Medical", description: "Right radical orchiectomy performed; pathology pT1." },
+    { date: "2020-09-10", title: "Fibromyalgia Diagnosis", category: "Medical", description: "Amitriptyline started; PT and CBT referrals made." },
+    { date: "2022-04-15", title: "CT Surveillance", category: "Imaging", description: "No recurrence or metastasis seen." },
+    { date: "2025-09-20", title: "Complaint Filed", category: "Filing", description: "Suit filed alleging causation from chronic PFOA exposure." }
+  ]
+}
+
 ];
 
 export const DOCUMENTS: Document[] = [
@@ -193,7 +217,18 @@ export const DOCUMENTS: Document[] = [
   { id: "doc-702", caseId: "case-107", patientName: "King, Robert", fileName: "Revision Surgery Packet 11-18-2024.pdf", type: "Hospital Records", status: "Processed", uploadedAt: "Nov 25, 2024", pages: 76, size: "7.8 MB" },
 
   { id: "doc-801", caseId: "case-108", patientName: "Williams, Tanya", fileName: "Urgent Care Burn Records 01-28-2025.pdf", type: "Clinic Records", status: "Processed", uploadedAt: "Feb 01, 2025", pages: 9, size: "0.9 MB" },
-  { id: "doc-802", caseId: "case-108", patientName: "Williams, Tanya", fileName: "Product Testing Report Pending.pdf", type: "Lab Report", status: "Processing", uploadedAt: "Aug 05, 2025", pages: 0, size: "—" }
+  { id: "doc-802", caseId: "case-108", patientName: "Williams, Tanya", fileName: "Product Testing Report Pending.pdf", type: "Lab Report", status: "Processing", uploadedAt: "Aug 05, 2025", pages: 0, size: "—" },
+
+  {id:"doc-901",caseId:"case-109",patientName:"Doe, John",fileName:"PFOA-1-2.pdf",type:"Medical Record",status:"Processed",uploadedAt:"Sep 22, 2025",pages:12,size:"0.10 MB",localPath:"/pdfs/pfoa/PFOA-1-2.pdf"},
+  {id:"doc-902",caseId:"case-109",patientName:"Doe, John",fileName:"PFOA-3.pdf",type:"Medical Record",status:"Processed",uploadedAt:"Sep 22, 2025",pages:6,size:"0.08 MB",localPath:"/pdfs/pfoa/PFOA-3.pdf"},
+  {id:"doc-903",caseId:"case-109",patientName:"Doe, John",fileName:"PFOA-4-5.pdf",type:"Medical Record",status:"Processed",uploadedAt:"Sep 22, 2025",pages:10,size:"0.09 MB",localPath:"/pdfs/pfoa/PFOA-4-5.pdf"},
+  {id:"doc-904",caseId:"case-109",patientName:"Doe, John",fileName:"PFOA-6-7.pdf",type:"Medical Record",status:"Processed",uploadedAt:"Sep 22, 2025",pages:8,size:"0.09 MB",localPath:"/pdfs/pfoa/PFOA-6-7.pdf"},
+  {id:"doc-905",caseId:"case-109",patientName:"Doe, John",fileName:"PFOA-8-9.pdf",type:"Medical Record",status:"Processed",uploadedAt:"Sep 22, 2025",pages:9,size:"0.10 MB",localPath:"/pdfs/pfoa/PFOA-8-9.pdf"},
+  {id:"doc-906",caseId:"case-109",patientName:"Doe, John",fileName:"PFOA-10-11.pdf",type:"Medical Record",status:"Processed",uploadedAt:"Sep 22, 2025",pages:12,size:"0.10 MB",localPath:"/pdfs/pfoa/PFOA-10-11.pdf"},
+  {id:"doc-907",caseId:"case-109",patientName:"Doe, John",fileName:"PFOA-12-14.pdf",type:"Medical Record",status:"Processed",uploadedAt:"Sep 22, 2025",pages:15,size:"0.11 MB",localPath:"/pdfs/pfoa/PFOA-12-14.pdf"},
+  {id:"doc-908",caseId:"case-109",patientName:"Doe, John",fileName:"PFOA-15-16.pdf",type:"Medical Record",status:"Processed",uploadedAt:"Sep 22, 2025",pages:8,size:"0.09 MB",localPath:"/pdfs/pfoa/PFOA-15-16.pdf"},
+  {id:"doc-909",caseId:"case-109",patientName:"Doe, John",fileName:"PFOA-17-18.pdf",type:"Medical Record",status:"Processed",uploadedAt:"Sep 22, 2025",pages:7,size:"0.08 MB",localPath:"/pdfs/pfoa/PFOA-17-18.pdf"}
+
 ];
 
 export const FINDINGS: Finding[] = [
@@ -217,5 +252,15 @@ export const FINDINGS: Finding[] = [
 
   { id: "find-701", documentId: "doc-702", caseId: "case-107", type: "Diagnosis", category: "Orthopedic", description: "Peri-acetabular osteolysis with elevated wear debris; component exchange performed.", date: "11/18/2024", provider: "Dr. Greene, Orthopedics", confidence: 95 },
 
-  { id: "find-801", documentId: "doc-801", caseId: "case-108", type: "Diagnosis", category: "Burn", description: "Second-degree partial thickness burns forearm/wrist; conservative wound care with silver sulfadiazine.", date: "1/28/2025", provider: "PA Jackson", confidence: 91 }
+  { id: "find-801", documentId: "doc-801", caseId: "case-108", type: "Diagnosis", category: "Burn", description: "Second-degree partial thickness burns forearm/wrist; conservative wound care with silver sulfadiazine.", date: "1/28/2025", provider: "PA Jackson", confidence: 91 },
+
+  {id:"find-901",documentId:"doc-901",caseId:"case-109",type:"Lab Result",category:"Cholesterol",description:"Total cholesterol 220 mg/dL, LDL 140 mg/dL — borderline high.",date:"1/18/2005",provider:"Unity Diagnostics Lab",confidence:92},
+  {id:"find-902",documentId:"doc-903",caseId:"case-109",type:"Diagnosis",category:"Hypertension",description:"Essential hypertension confirmed on multiple readings.",date:"3/15/2010",provider:"Dr. Evelyn Reed",confidence:95},
+  {id:"find-903",documentId:"doc-904",caseId:"case-109",type:"Diagnosis",category:"IBD",description:"Ulcerative colitis confirmed by colonoscopy and biopsy.",date:"8/22/2012",provider:"Dr. Samuel Chen",confidence:98},
+  {id:"find-904",documentId:"doc-905",caseId:"case-109",type:"Event",category:"Hospitalization",description:"Acute kidney injury treated with IV fluids; lisinopril held.",date:"11/05/2014",provider:"Dr. Laura Miller",confidence:97},
+  {id:"find-905",documentId:"doc-906",caseId:"case-109",type:"Diagnosis",category:"Endocrine",description:"Primary hypothyroidism with positive TPO antibodies.",date:"5/10/2016",provider:"Dr. Sophia Chang",confidence:96},
+  {id:"find-906",documentId:"doc-907",caseId:"case-109",type:"Diagnosis",category:"Oncology",description:"Stage I seminoma, right testis; orchiectomy performed.",date:"2/18/2019",provider:"Dr. Marcus Thorne",confidence:99},
+  {id:"find-907",documentId:"doc-908",caseId:"case-109",type:"Diagnosis",category:"Rheumatology",description:"Fibromyalgia diagnosis meeting 2010 ACR criteria.",date:"9/10/2020",provider:"Dr. David Kim",confidence:94},
+  {id:"find-908",documentId:"doc-909",caseId:"case-109",type:"Imaging",category:"Oncology",description:"CT abdomen/pelvis negative for recurrence.",date:"4/15/2022",provider:"Dr. Robert Lee",confidence:98}
+
 ];

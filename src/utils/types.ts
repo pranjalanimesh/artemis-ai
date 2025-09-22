@@ -33,6 +33,7 @@ export type TimelineEvent = {
     description?: string;
     sourceUrl?: string;
     iconLabel?: string; // A short label for an icon, e.g., "PDF"
+    localPath?: string; // Local file path if uploaded
 };
 
 /**

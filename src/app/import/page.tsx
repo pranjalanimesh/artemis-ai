@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { UploadCloud, CheckCircle2, File as FileIcon } from "lucide-react";
 
-type QueueItem = { id: string; name: string; size: number; progress: number; status: "queued"|"uploading"|"done"|"error" };
+type QueueItem = { id: string; name: string; size: number; progress: number; status: "queued" | "uploading" | "done" | "error" };
 
 export default function ImportPage() {
   const [, setTick] = React.useState(0);
@@ -155,7 +155,7 @@ export default function ImportPage() {
                   <span className="truncate text-sm">{f.name}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge variant="secondary">{(f.size/1024/1024).toFixed(2)} MB</Badge>
+                  <Badge variant="secondary">{(f.size / 1024 / 1024).toFixed(2)} MB</Badge>
                   <Badge>Uploaded</Badge>
                 </div>
               </li>
@@ -165,8 +165,8 @@ export default function ImportPage() {
       </Card>
 
       <div className="flex items-center justify-end gap-2">
-        <Button variant="outline" onClick={() => setUploaded([])} disabled={uploaded.length===0}>Reset Uploaded</Button>
-        <Button disabled={uploaded.length===0 || !caseId}>Finish Import</Button>
+        <Button variant="outline" onClick={() => setUploaded([])} disabled={uploaded.length === 0}>Reset Uploaded</Button>
+        <Button disabled={uploaded.length === 0 || !caseId}>Finish Import</Button>
       </div>
     </div>
   );
