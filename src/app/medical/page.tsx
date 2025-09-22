@@ -18,6 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { FINDINGS, DOCUMENTS } from "@/utils/mock-data"; // ADDED
 
 type FindingType = 'Diagnosis' | 'Treatment' | 'Medication' | 'Test Result' | 'Symptom';
 
@@ -34,7 +35,7 @@ function FindingCard({
   category: string;
   description: string;
   date: string;
-  source: string;
+  source?: string; // CHANGED
   doctor: string;
   confidence: number;
 }) {
@@ -62,9 +63,10 @@ function FindingCard({
       <p className="text-sm text-gray-700">{description}</p>
       <div className="text-xs text-gray-500 grid grid-cols-2 gap-2">
         <div>Date: {date}</div>
-        <div>Source: {source}</div>
+        {source && <div>Source: {source}</div>} {/* CHANGED */}
         <div>Provider: {doctor}</div>
       </div>
+
     </div>
   );
 }
@@ -88,19 +90,19 @@ function calculateConfidenceDistribution(findings: any[]) {
   };
 }
 
-function AnimatedProgressBar({ 
-  value, 
-  color 
-}: { 
-  value: number, 
-  color: string 
+function AnimatedProgressBar({
+  value,
+  color
+}: {
+  value: number,
+  color: string
 }) {
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
     // Start with 0
     setWidth(0);
-    
+
     // Animate to actual value after a small delay
     const timeout = setTimeout(() => {
       setWidth(value);
@@ -111,7 +113,7 @@ function AnimatedProgressBar({
 
   return (
     <div className="h-2 rounded-full bg-gray-100 overflow-hidden">
-      <div 
+      <div
         className={`h-full rounded-full ${color} transition-all duration-1000 ease-out`}
         style={{ width: `${width}%` }}
       />
@@ -214,161 +216,21 @@ export default function MedicalPage() {
     setSystemFilter(system);
   };
 
-    const findings = [
-    {
-      type: "Diagnosis",
-      category: "Musculoskeletal",
-      description: "Chronic lower back pain with L4-L5 disc herniation and radiculopathy affecting the left leg",
-      date: "1/15/2024",
-      source: "Dr. Smith - Orthopedic Consultation.pdf",
-      doctor: "Dr. Michael Smith, MD",
-      confidence: 95
-    },
-    {
-      type: "Treatment",
-      category: "Musculoskeletal",
-      description: "Physical therapy sessions, 3x weekly for 6 weeks focusing on core strengthening and flexibility",
-      date: "1/20/2024",
-      source: "Physical Therapy Initial Evaluation.pdf",
-      doctor: "Sarah Johnson, PT",
-      confidence: 88
-    },
-    {
-      type: "Medication",
-      category: "Musculoskeletal",
-      description: "Prescribed Ibuprofen 600mg TID for inflammation and Gabapentin 300mg BID for neuropathic pain",
-      date: "1/15/2024",
-      source: "Dr. Smith - Orthopedic Consultation.pdf",
-      doctor: "Dr. Michael Smith, MD",
-      confidence: 92
-    },
-    {
-      type: "Test Result",
-      category: "Musculoskeletal",
-      description: "MRI lumbar spine shows moderate to severe disc herniation at L4-L5 with neural foraminal narrowing",
-      date: "1/10/2024",
-      source: "MRI Lumbar Spine Report.pdf",
-      doctor: "Dr. Lisa Chen, MD",
-      confidence: 98
-    },
-    {
-      type: "Symptom",
-      category: "Nervous System",
-      description: "Patient reports severe shooting pain down left leg, numbness in left foot, difficulty walking",
-      date: "1/15/2024",
-      source: "Dr. Smith - Orthopedic Consultation.pdf",
-      doctor: "Dr. Michael Smith, MD",
-      confidence: 85
-    },
-    {
-      type: "Diagnosis",
-      category: "Cardiovascular",
-      description: "Hypertension, well-controlled on current medication regimen",
-      date: "1/12/2024",
-      source: "Primary Care Visit Notes.pdf",
-      doctor: "Dr. Robert Wilson, MD",
-      confidence: 78
-    },
-    {
-      type: "Test Result",
-      category: "Cardiovascular",
-      description: "ECG shows normal sinus rhythm, no ST changes, QRS duration within normal limits",
-      date: "1/14/2024",
-      source: "Cardiology Report.pdf",
-      doctor: "Dr. Jane Wilson, MD",
-      confidence: 96
-    },
-    {
-      type: "Medication",
-      category: "Cardiovascular",
-      description: "Lisinopril 10mg daily for hypertension management",
-      date: "1/12/2024",
-      source: "Primary Care Visit Notes.pdf",
-      doctor: "Dr. Robert Wilson, MD",
-      confidence: 94
-    },
-    {
-      type: "Symptom",
-      category: "Respiratory",
-      description: "Occasional shortness of breath with moderate exertion, no chest pain",
-      date: "1/13/2024",
-      source: "Patient Self-Report.pdf",
-      doctor: "Dr. Robert Wilson, MD",
-      confidence: 82
-    },
-    {
-      type: "Test Result",
-      category: "Laboratory",
-      description: "Complete Blood Count within normal limits, Hemoglobin 14.2 g/dL",
-      date: "1/11/2024",
-      source: "Laboratory Results.pdf",
-      doctor: "Dr. Sarah Chen, MD",
-      confidence: 99
-    },
-    {
-      type: "Diagnosis",
-      category: "Endocrine",
-      description: "Pre-diabetes, HbA1c 6.3%, recommended lifestyle modifications",
-      date: "1/11/2024",
-      source: "Endocrinology Consultation.pdf",
-      doctor: "Dr. Maria Rodriguez, MD",
-      confidence: 91
-    },
-    {
-      type: "Treatment",
-      category: "Nutritional",
-      description: "Dietary consultation for diabetes prevention, recommended Mediterranean diet",
-      date: "1/16/2024",
-      source: "Nutritionist Consultation.pdf",
-      doctor: "Emily Thompson, RD",
-      confidence: 88
-    },
-    {
-      type: "Medication",
-      category: "Pain Management",
-      description: "Tylenol 500mg PRN for breakthrough pain, not to exceed 4g/day",
-      date: "1/15/2024",
-      source: "Pain Management Notes.pdf",
-      doctor: "Dr. Michael Smith, MD",
-      confidence: 93
-    },
-    {
-      type: "Test Result",
-      category: "Imaging",
-      description: "Chest X-ray shows clear lung fields, no active disease",
-      date: "1/13/2024",
-      source: "Radiology Report.pdf",
-      doctor: "Dr. James Lee, MD",
-      confidence: 97
-    },
-    {
-      type: "Symptom",
-      category: "Gastrointestinal",
-      description: "Intermittent acid reflux symptoms, worse with lying flat",
-      date: "1/14/2024",
-      source: "GI Consultation Notes.pdf",
-      doctor: "Dr. Lisa Brown, MD",
-      confidence: 76
-    },
-    {
-      type: "Treatment",
-      category: "Lifestyle",
-      description: "Sleep hygiene counseling, recommended consistent 8-hour sleep schedule",
-      date: "1/16/2024",
-      source: "Sleep Clinic Notes.pdf",
-      doctor: "Dr. Thomas White, MD",
-      confidence: 85
-    },
-    {
-      type: "Diagnosis",
-      category: "Mental Health",
-      description: "Mild anxiety related to chronic health conditions",
-      date: "1/17/2024",
-      source: "Psychological Assessment.pdf",
-      doctor: "Dr. Rachel Green, PhD",
-      confidence: 89
-    }
-  ];
+  const findings = React.useMemo(() => {
+    return FINDINGS.map((f) => {
+      const doc = DOCUMENTS.find(d => d.id === f.documentId);
+      return {
+        type: f.type,
+        category: f.category,
+        description: f.description,
+        date: f.date,
+        source: doc?.fileName,          // ADDED
+        doctor: f.provider,             // CHANGED
+        confidence: f.confidence,
+      };
+    });
+  }, []);
+
 
   const filteredFindings = React.useMemo(() => {
     let filtered = findings;
@@ -386,7 +248,7 @@ export default function MedicalPage() {
     }
 
     return filtered;
-  }, [systemFilter, searchTerm]);
+  }, [systemFilter, searchTerm, findings]);
 
   return (
     <div className="space-y-6 rounded-lg">
