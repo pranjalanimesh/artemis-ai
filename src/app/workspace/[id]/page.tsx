@@ -206,9 +206,9 @@ export default function WorkspaceCasePage() {
                 <div className="text-xs text-muted-foreground">Preview</div>
                 <div className="font-medium truncate">{selectedDoc?.fileName ?? "No document selected"}</div>
               </div>
-              {selectedDoc?.previewUrl && (
+              {previewSrc && (
                 <Button asChild size="sm" variant="outline">
-                  <a href={selectedDoc.previewUrl.replace("/preview", "/view")} target="_blank" rel="noreferrer">Open</a>
+                  <a href={previewSrc.replace("/preview", "/view")} target="_blank" rel="noreferrer">Open</a>
                 </Button>
               )}
             </div>
