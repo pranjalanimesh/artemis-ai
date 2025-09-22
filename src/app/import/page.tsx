@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import { getAllCases, onCasesChanged } from "@/utils/cases-store";
+import { getAllCases, onCasesChanged, enrichCaseWithHardcodedMedical } from "@/utils/cases-store";
 import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { UploadCloud, CheckCircle2, File as FileIcon } from "lucide-react";
 
-type QueueItem = { id: string; name: string; size: number; progress: number; status: "queued" | "uploading" | "done" | "error" };
+type QueueItem = { id: string; name: string; size: number; progress: number; status: "queued"|"uploading"|"done"|"error" };
 
 export default function ImportPage() {
   const [, setTick] = React.useState(0);
@@ -36,11 +36,10 @@ export default function ImportPage() {
     setQueue((q) => [...q, ...items]);
   };
 
+  // simulate upload and trigger enrichment on completion
   React.useEffect(() => {
     const timers: NodeJS.Timeout[] = [];
-    setQueue((prev) =>
-      prev.map((it) => ({ ...it, status: it.status === "queued" ? "uploading" : it.status }))
-    );
+    setQueue((prev) => prev.map((it) => ({ ...it, status: it.status === "queued" ? "uploading" : it.status })));
     queue.forEach((item) => {
       if (item.status !== "queued" && item.status !== "uploading") return;
       const t = setInterval(() => {
@@ -53,6 +52,8 @@ export default function ImportPage() {
               setTimeout(() => {
                 setUploaded((u) => [{ ...next }, ...u]);
                 setQueue((c) => c.filter((x) => x.id !== next.id));
+                // enrich local case when any file completes
+                if (caseId) enrichCaseWithHardcodedMedical(caseId);
               }, 300);
             }
             return next;
@@ -114,13 +115,7 @@ export default function ImportPage() {
             <p className="text-sm text-muted-foreground">Multiple PDFs, images, anything. We fake the upload. You get the vibe.</p>
           </div>
           <Button type="button" onClick={() => inputRef.current?.click()}>Choose files</Button>
-          <input
-            ref={inputRef}
-            type="file"
-            multiple
-            className="hidden"
-            onChange={(e) => onPick(e.target.files)}
-          />
+          <input ref={inputRef} type="file" multiple className="hidden" onChange={(e) => onPick(e.target.files)} />
         </div>
       </Card>
 
@@ -160,7 +155,7 @@ export default function ImportPage() {
                   <span className="truncate text-sm">{f.name}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge variant="secondary">{(f.size / 1024 / 1024).toFixed(2)} MB</Badge>
+                  <Badge variant="secondary">{(f.size/1024/1024).toFixed(2)} MB</Badge>
                   <Badge>Uploaded</Badge>
                 </div>
               </li>
@@ -170,8 +165,8 @@ export default function ImportPage() {
       </Card>
 
       <div className="flex items-center justify-end gap-2">
-        <Button variant="outline" onClick={() => setUploaded([])} disabled={uploaded.length === 0}>Reset Uploaded</Button>
-        <Button disabled={uploaded.length === 0 || !caseId}>Finish Import</Button>
+        <Button variant="outline" onClick={() => setUploaded([])} disabled={uploaded.length===0}>Reset Uploaded</Button>
+        <Button disabled={uploaded.length===0 || !caseId}>Finish Import</Button>
       </div>
     </div>
   );
