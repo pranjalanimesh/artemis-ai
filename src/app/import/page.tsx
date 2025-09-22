@@ -1,16 +1,25 @@
 "use client";
 import React from "react";
-import { CASES } from "@/utils/mock-data";
+import { getAllCases, onCasesChanged } from "@/utils/cases-store";
 import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { UploadCloud, CheckCircle2, XCircle, File as FileIcon } from "lucide-react";
+import { UploadCloud, CheckCircle2, File as FileIcon } from "lucide-react";
 
-type QueueItem = { id: string; name: string; size: number; progress: number; status: "queued"|"uploading"|"done"|"error" };
+type QueueItem = { id: string; name: string; size: number; progress: number; status: "queued" | "uploading" | "done" | "error" };
 
 export default function ImportPage() {
-  const [caseId, setCaseId] = React.useState(CASES[0]?.id ?? "");
+  const [, setTick] = React.useState(0);
+  React.useEffect(() => onCasesChanged(() => setTick((t) => t + 1)), []);
+  const cases = React.useMemo(() => getAllCases(), [setTick]);
+
+  const [caseId, setCaseId] = React.useState(cases[0]?.id ?? "");
+  React.useEffect(() => {
+    if (!caseId && cases[0]?.id) setCaseId(cases[0].id);
+    if (caseId && !cases.find(c => c.id === caseId)) setCaseId(cases[0]?.id ?? "");
+  }, [cases, caseId]);
+
   const [queue, setQueue] = React.useState<QueueItem[]>([]);
   const [uploaded, setUploaded] = React.useState<QueueItem[]>([]);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -41,7 +50,6 @@ export default function ImportPage() {
             const bump = Math.min(100, it.progress + Math.ceil(Math.random() * 18));
             const next = { ...it, progress: bump, status: bump >= 100 ? "done" : "uploading" };
             if (next.status === "done") {
-              // move to uploaded after a tiny delay for a snappier feel
               setTimeout(() => {
                 setUploaded((u) => [{ ...next }, ...u]);
                 setQueue((c) => c.filter((x) => x.id !== next.id));
@@ -57,11 +65,10 @@ export default function ImportPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queue.length]);
 
-  const current = React.useMemo(() => CASES.find((c) => c.id === caseId), [caseId]);
+  const current = React.useMemo(() => cases.find((c) => c.id === caseId), [cases, caseId]);
 
   return (
     <div className="space-y-6">
-      {/* header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-semibold">Import</h1>
@@ -70,14 +77,13 @@ export default function ImportPage() {
         <Button variant="outline" onClick={() => { setQueue([]); setUploaded([]); }}>Clear</Button>
       </div>
 
-      {/* case picker */}
       <Card className="p-4">
         <div className="flex flex-col md:flex-row md:items-center gap-3">
           <div className="w-full md:w-80">
             <Select value={caseId} onValueChange={setCaseId}>
               <SelectTrigger><SelectValue placeholder="Select case" /></SelectTrigger>
               <SelectContent className="max-h-80">
-                {CASES.map((c) => (
+                {cases.map((c) => (
                   <SelectItem key={c.id} value={c.id}>{c.title}</SelectItem>
                 ))}
               </SelectContent>
@@ -95,7 +101,6 @@ export default function ImportPage() {
         </div>
       </Card>
 
-      {/* dropzone */}
       <Card
         className="p-6 border-dashed cursor-pointer hover:shadow-sm transition"
         onClick={() => inputRef.current?.click()}
@@ -119,7 +124,6 @@ export default function ImportPage() {
         </div>
       </Card>
 
-      {/* uploading queue */}
       {queue.length > 0 && (
         <Card className="p-4">
           <h2 className="text-sm font-semibold mb-3">Uploading</h2>
@@ -143,7 +147,6 @@ export default function ImportPage() {
         </Card>
       )}
 
-      {/* uploaded list */}
       <Card className="p-4">
         <h2 className="text-sm font-semibold mb-3">Recently Uploaded</h2>
         {uploaded.length === 0 ? (
@@ -157,7 +160,7 @@ export default function ImportPage() {
                   <span className="truncate text-sm">{f.name}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge variant="secondary">{(f.size/1024/1024).toFixed(2)} MB</Badge>
+                  <Badge variant="secondary">{(f.size / 1024 / 1024).toFixed(2)} MB</Badge>
                   <Badge>Uploaded</Badge>
                 </div>
               </li>
@@ -166,10 +169,9 @@ export default function ImportPage() {
         )}
       </Card>
 
-      {/* footer actions */}
       <div className="flex items-center justify-end gap-2">
-        <Button variant="outline" onClick={() => setUploaded([])} disabled={uploaded.length===0}>Reset Uploaded</Button>
-        <Button disabled={uploaded.length===0 || !caseId}>Finish Import</Button>
+        <Button variant="outline" onClick={() => setUploaded([])} disabled={uploaded.length === 0}>Reset Uploaded</Button>
+        <Button disabled={uploaded.length === 0 || !caseId}>Finish Import</Button>
       </div>
     </div>
   );

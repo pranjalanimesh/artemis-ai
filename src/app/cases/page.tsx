@@ -1,23 +1,27 @@
 "use client";
 import React from "react";
-import { CASES } from "@/utils/mock-data";
-import { Case } from "@/utils/types";
+import { useSearchParams, useRouter } from "next/navigation";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { LayoutGrid, Table as TableIcon } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 import CaseFilters from "@/components/cases/CaseFilters";
 import CaseList from "@/components/cases/CaseList";
 import CaseTable from "@/components/cases/CaseTable";
-import { useSearchParams, useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LayoutGrid, Table as TableIcon, Plus } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 import { useFilteredCases } from "@/hooks/use-filtered-cases";
+import { getAllCases, onCasesChanged } from "@/utils/cases-store";
+import NewCaseDialog from "@/components/cases/NewCaseDialog";
 
 export default function CasesPage() {
     const params = useSearchParams();
     const router = useRouter();
+    const [, setTick] = React.useState(0);
+    React.useEffect(() => onCasesChanged(() => setTick((t) => t + 1)), []);
     const view = params.get("view") ?? "table";
     const items = useFilteredCases();
-    const allTags = Array.from(new Set(CASES.flatMap((c) => c.tags))).sort();
+    const allTags = React.useMemo(
+        () => Array.from(new Set(getAllCases().flatMap((c) => c.tags))).sort(),
+        [setTick]
+    );
 
     return (
         <div className="space-y-6">
@@ -27,10 +31,12 @@ export default function CasesPage() {
                     <p className="text-sm text-muted-foreground">Search and filter cases. Click a case to enter its workspace.</p>
                 </div>
                 <div className="flex items-center gap-2">
-                    <Button>
-                        <Plus className="w-4 h-4 mr-2" />
-                        New Case
-                    </Button>
+                    <NewCaseDialog
+                        onCreated={() => {
+                            const next = new URLSearchParams(params.toString());
+                            router.push(`/cases?${next.toString()}`);
+                        }}
+                    />
                     <Tabs
                         value={view}
                         onValueChange={(v) => {

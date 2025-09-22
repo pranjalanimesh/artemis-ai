@@ -3,11 +3,16 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuTrigger,
+    DropdownMenuCheckboxItem,
+} from "@/components/ui/dropdown-menu";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { CalendarIcon, Filter, RotateCcw, Tag, X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { CASES } from "@/utils/mock-data";
+import { getAllCases, onCasesChanged } from "@/utils/cases-store";
 
 function setQuery(router: any, params: URLSearchParams, key: string, value: string | undefined, basePath: string) {
     const next = new URLSearchParams(params.toString());
@@ -19,6 +24,8 @@ function setQuery(router: any, params: URLSearchParams, key: string, value: stri
 export default function CaseFilters({ allTags, basePath }: { allTags: string[]; basePath: string }) {
     const router = useRouter();
     const params = useSearchParams();
+    const [, setTick] = React.useState(0);
+    React.useEffect(() => onCasesChanged(() => setTick((t) => t + 1)), []);
 
     const search = params.get("q") ?? "";
     const type = (params.get("type") as string | null) ?? null;
@@ -28,13 +35,14 @@ export default function CaseFilters({ allTags, basePath }: { allTags: string[]; 
     const tags = (params.get("tags") ?? "").split(",").filter(Boolean);
 
     const allTypes = React.useMemo(() => {
-        const uniq = Array.from(new Set(CASES.map((c) => c.type))).sort();
+        const uniq = Array.from(new Set(getAllCases().map((c) => c.type))).sort();
         return ["All types", ...uniq];
-    }, []);
+    }, [setTick]);
+
     const allStatus = React.useMemo(() => {
-        const uniq = Array.from(new Set(CASES.map((c) => c.status))).sort();
+        const uniq = Array.from(new Set(getAllCases().map((c) => c.status))).sort();
         return ["All status", ...uniq];
-    }, []);
+    }, [setTick]);
 
     const clearAll = () => router.push(basePath);
 

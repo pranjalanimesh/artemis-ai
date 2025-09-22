@@ -1,10 +1,13 @@
+"use client";
 import React from "react";
 import { useSearchParams } from "next/navigation";
-import { CASES } from "@/utils/mock-data";
 import { Case } from "@/utils/types";
+import { getAllCases, onCasesChanged } from "@/utils/cases-store";
 
 export function useFilteredCases(): Case[] {
     const params = useSearchParams();
+    const [, setTick] = React.useState(0);
+    React.useEffect(() => onCasesChanged(() => setTick((t) => t + 1)), []);
 
     const filters = React.useMemo(() => {
         const rawType = params.get("type") || "";
@@ -20,13 +23,14 @@ export function useFilteredCases(): Case[] {
     }, [params]);
 
     return React.useMemo(() => {
+        const all = getAllCases();
         const fromDate = filters.from ? new Date(filters.from) : null;
         const toDate = filters.to ? new Date(filters.to) : null;
 
         if (fromDate && isNaN(fromDate.getTime())) return [];
         if (toDate && isNaN(toDate.getTime())) return [];
 
-        const filtered = CASES.filter((c) => {
+        const filtered = all.filter((c) => {
             if (
                 filters.q &&
                 !c.title.toLowerCase().includes(filters.q) &&
@@ -58,5 +62,5 @@ export function useFilteredCases(): Case[] {
                 new Date(b.updatedAt).getTime() -
                 new Date(a.updatedAt).getTime()
         );
-    }, [filters]);
+    }, [filters, setTick]);
 }
